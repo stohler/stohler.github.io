@@ -54,13 +54,13 @@
 
             <!-- If you are logged in, automatically get your name and email adress, your public profile information -->
             FB.login(
-                function(response)[
+                function(response) {
                     console.log(response);
-                ], [
+                }, {
                     config_id: '332099389513267',
                     response_type: 'code',
                     override_default_response_type: true
-                ]
+                }
             );
         };
 
