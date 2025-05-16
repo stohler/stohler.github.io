@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Instagram Auth Callback</title>
+</head>
+
+<body>
+    <h2>Autenticando...</h2>
+    <p id="status">Processando autenticação do Instagram...</p>
+
+    <script>
+        (async function() {
+            const status = document.getElementById('status');
+
+            // Extrai o fragmento da URL (sem o #)
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+
+            const accessToken = params.get('access_token');
+            const expiresIn = params.get('expires_in');
+            const dataAccessExpiration = params.get('data_access_expiration_time');
+            const longLivedToken = params.get('long_lived_token');
+
+            if (!accessToken || !expiresIn || !dataAccessExpiration || !longLivedToken) {
+                status.textContent = 'Erro: parâmetros incompletos na URL.';
+                return;
+            }
+
+            // Monta a URL de callback com os parâmetros
+            const callbackUrl = new URL('https://api-sandbox.moneri.com.br/v1/instagram-scrapper/auth/facebook/callback');
+            callbackUrl.searchParams.set('access_token', accessToken);
+            callbackUrl.searchParams.set('expires_in', expiresIn);
+            callbackUrl.searchParams.set('data_access_expiration_time', dataAccessExpiration);
+            callbackUrl.searchParams.set('long_lived_token', longLivedToken);
+
+            try {
+                const response = await fetch(callbackUrl, {
+                    method: 'GET',
+                });
+
+                if (response.ok) {
+                    const json = await response.json();
+                    status.textContent = 'Autenticação concluída com sucesso!';
+                    console.log('Resposta da API:', json);
+                } else {
+                    const error = await response.text();
+                    status.textContent = 'Erro ao autenticar: ' + error;
+                    console.error('Erro:', error);
+                }
+            } catch (e) {
+                status.textContent = 'Erro de rede: ' + e.message;
+                console.error('Erro de rede:', e);
+            }
+        })();
+    </script>
+</body>
+
+</html>
