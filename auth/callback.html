@@ -23,7 +23,7 @@
             const dataAccessExpiration = params.get('data_access_expiration_time');
             const longLivedToken = params.get('long_lived_token');
 
-            if (!accessToken || !expiresIn || !dataAccessExpiration || !longLivedToken) {
+            if (!accessToken || !expiresIn || !dataAccessExpiration) {
                 status.textContent = 'Erro: parâmetros incompletos na URL.';
                 return;
             }
