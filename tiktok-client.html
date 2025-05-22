@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Login Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            color: white;
+            background-color: #3897f0;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            background-color: #2e75c2;
+        }
+        
+        #profile {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Teste Login TikTok</h2>
+        <p id="profile">Faça login para visualizar seu perfil.</p>
+        <a href="https://www.tiktok.com/v2/auth/authorize/?client_key=sbawv2wsyhijqgrnue&scope=user.info.basic%20user.info.stats%20user.info.profile%20video.list&response_type=code&redirect_uri=https%3A%2F%2Fapi-sandbox.moneri.com.br%2Fv1%2Finstagram-scrapper%2Fauth%2Ftiktok%2Fcallback&state=http://localhost:3000">
+            Log in with TikTok
+        </a>
+    </div>
+</body>
+
+</html>
