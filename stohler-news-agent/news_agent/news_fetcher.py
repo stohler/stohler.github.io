@@ -72,6 +72,14 @@ def _topic_score(article: Article, topic: str, keywords: list[str]) -> float:
     return base + recency_bonus
 
 
+def _matches_topic(article: Article, topic: str, keywords: list[str]) -> bool:
+    haystack = f"{article.title} {article.summary}".lower()
+    topic_terms = [term for term in re.split(r"\s+", topic.lower()) if len(term) >= 3]
+    normalized_keywords = [keyword.lower() for keyword in keywords if len(keyword.strip()) >= 2]
+    required_terms = list(dict.fromkeys(topic_terms + normalized_keywords))
+    return any(term in haystack for term in required_terms)
+
+
 def fetch_articles(
     sources: dict[str, str],
     topic: str,
@@ -112,7 +120,11 @@ def fetch_articles(
             all_articles.append(article)
 
     all_articles.sort(key=lambda item: item.score, reverse=True)
-    filtered = [article for article in all_articles if article.score >= 1.8]
+    filtered = [
+        article
+        for article in all_articles
+        if article.score >= 1.8 and _matches_topic(article, topic=topic, keywords=keywords)
+    ]
     deduped: list[Article] = []
     seen_links: set[str] = set()
 
