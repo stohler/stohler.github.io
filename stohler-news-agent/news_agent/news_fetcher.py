@@ -57,14 +57,23 @@ def _parse_published(entry: Any) -> datetime:
     return datetime.now(tz=UTC)
 
 
+def _contains_term(text: str, term: str) -> bool:
+    clean_term = term.strip().lower()
+    if not clean_term:
+        return False
+    if " " in clean_term:
+        return clean_term in text
+    return bool(re.search(rf"\b{re.escape(clean_term)}\b", text))
+
+
 def _topic_score(article: Article, topic: str, keywords: list[str]) -> float:
     haystack = f"{article.title} {article.summary}".lower()
     base = 0.0
-    if topic.lower() in haystack:
+    if _contains_term(haystack, topic.lower()):
         base += 4.0
 
     for keyword in keywords:
-        if keyword.lower() in haystack:
+        if _contains_term(haystack, keyword):
             base += 1.2
 
     age_hours = max((datetime.now(tz=UTC) - article.published).total_seconds() / 3600.0, 0.0)
@@ -77,7 +86,7 @@ def _matches_topic(article: Article, topic: str, keywords: list[str]) -> bool:
     topic_terms = [term for term in re.split(r"\s+", topic.lower()) if len(term) >= 3]
     normalized_keywords = [keyword.lower() for keyword in keywords if len(keyword.strip()) >= 2]
     required_terms = list(dict.fromkeys(topic_terms + normalized_keywords))
-    return any(term in haystack for term in required_terms)
+    return any(_contains_term(haystack, term) for term in required_terms)
 
 
 def fetch_articles(
