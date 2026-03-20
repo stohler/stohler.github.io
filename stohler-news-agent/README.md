@@ -79,13 +79,13 @@ No repositório GitHub, configure em **Settings > Secrets and variables > Action
 - **Variables**:
   - `TOPIC`
   - `TOPIC_KEYWORDS`
+  - `GEMINI_MODEL` (opcional, ex.: `gemini-2.0-flash`)
 - **Secrets**:
-- `GEMINI_API_KEY` (opcional)
-- `GEMINI_MODEL` (opcional, ex.: `gemini-2.0-flash`)
-- `X_API_KEY`
-- `X_API_SECRET`
-- `X_ACCESS_TOKEN`
-- `X_ACCESS_TOKEN_SECRET`
+  - `GEMINI_API_KEY` (opcional)
+  - `X_API_KEY`
+  - `X_API_SECRET`
+  - `X_ACCESS_TOKEN`
+  - `X_ACCESS_TOKEN_SECRET`
 
 ## Setup automático para Cloud Agents
 
