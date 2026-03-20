@@ -47,7 +47,7 @@ def _publisher_from_settings(settings: Settings) -> XPublisher:
 
 def run(settings: Settings) -> int:
     store = PostedStore(settings.state_file)
-    summarizer = AISummarizer(api_key=settings.openai_api_key, model=settings.openai_model)
+    summarizer = AISummarizer(api_key=settings.gemini_api_key, model=settings.gemini_model)
 
     articles = fetch_articles(
         sources=TRUSTED_RSS_SOURCES,

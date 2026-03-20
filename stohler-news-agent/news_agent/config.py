@@ -14,8 +14,8 @@ class Settings:
     posts_per_run: int
     max_articles: int
     lookback_hours: int
-    openai_api_key: str | None
-    openai_model: str
+    gemini_api_key: str | None
+    gemini_model: str
     x_api_key: str | None
     x_api_secret: str | None
     x_access_token: str | None
@@ -56,8 +56,8 @@ def load_settings() -> Settings:
         posts_per_run=int(os.getenv("POSTS_PER_RUN", "1")),
         max_articles=int(os.getenv("MAX_ARTICLES", "40")),
         lookback_hours=int(os.getenv("LOOKBACK_HOURS", "48")),
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
-        openai_model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
+        gemini_api_key=os.getenv("GEMINI_API_KEY"),
+        gemini_model=os.getenv("GEMINI_MODEL", "gemini-2.0-flash"),
         x_api_key=os.getenv("X_API_KEY"),
         x_api_secret=os.getenv("X_API_SECRET"),
         x_access_token=os.getenv("X_ACCESS_TOKEN"),

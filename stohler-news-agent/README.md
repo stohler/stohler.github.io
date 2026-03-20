@@ -22,7 +22,7 @@ Projeto para rodar um agente que:
 ## Como funciona
 
 - O módulo `news_fetcher` coleta notícias das fontes e calcula uma pontuação de relevância por tema.
-- O módulo `ai_summarizer` usa OpenAI (se configurada) para resumir em português.
+- O módulo `ai_summarizer` usa Gemini (se configurada) para resumir em português.
 - O módulo `post_builder` monta o texto final no limite do X.
 - O módulo `x_client` publica no X e tenta anexar imagem quando disponível.
 - O `runner` evita repetir links já postados via arquivo `.state/posted_articles.json`.
@@ -49,7 +49,7 @@ Edite `.env`:
 
 - `TOPIC`: tema principal (ex.: `energia renovavel`)
 - `TOPIC_KEYWORDS`: palavras-chave separadas por vírgula
-- `OPENAI_API_KEY`: opcional, para sumarização melhor
+- `GEMINI_API_KEY`: opcional, para sumarização melhor
 - credenciais do X (`X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`)
 - `DRY_RUN=true` para testar sem publicar
 
@@ -78,8 +78,8 @@ No repositório GitHub, configure os **Secrets**:
 
 - `TOPIC`
 - `TOPIC_KEYWORDS`
-- `OPENAI_API_KEY` (opcional)
-- `OPENAI_MODEL` (opcional, ex.: `gpt-4.1-mini`)
+- `GEMINI_API_KEY` (opcional)
+- `GEMINI_MODEL` (opcional, ex.: `gemini-2.0-flash`)
 - `X_API_KEY`
 - `X_API_SECRET`
 - `X_ACCESS_TOKEN`
