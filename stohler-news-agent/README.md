@@ -74,10 +74,12 @@ Workflow em `.github/workflows/post_x.yml` roda:
 
 Cada execução publica 1 post (`POSTS_PER_RUN=1`), totalizando 2 por dia.
 
-No repositório GitHub, configure os **Secrets**:
+No repositório GitHub, configure em **Settings > Secrets and variables > Actions**:
 
-- `TOPIC`
-- `TOPIC_KEYWORDS`
+- **Variables**:
+  - `TOPIC`
+  - `TOPIC_KEYWORDS`
+- **Secrets**:
 - `GEMINI_API_KEY` (opcional)
 - `GEMINI_MODEL` (opcional, ex.: `gemini-2.0-flash`)
 - `X_API_KEY`

@@ -25,8 +25,8 @@ jobs:
 
       - name: Executar agente
         env:
-          TOPIC: ${{ secrets.TOPIC }}
-          TOPIC_KEYWORDS: ${{ secrets.TOPIC_KEYWORDS }}
+          TOPIC: ${{ vars.TOPIC }}
+          TOPIC_KEYWORDS: ${{ vars.TOPIC_KEYWORDS }}
           POSTS_PER_RUN: "1"
           MAX_ARTICLES: "40"
           LOOKBACK_HOURS: "48"
