@@ -33,10 +33,10 @@ Projeto para rodar um agente que:
 
 ```bash
 cd stohler-news-agent
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-pip install --upgrade pip
-pip install .
+python3 -m pip install --upgrade pip
+python3 -m pip install .
 ```
 
 ### 2) Configurar variáveis
@@ -84,6 +84,25 @@ No repositório GitHub, configure os **Secrets**:
 - `X_API_SECRET`
 - `X_ACCESS_TOKEN`
 - `X_ACCESS_TOKEN_SECRET`
+
+## Setup automático para Cloud Agents
+
+Foi adicionada configuração de ambiente em:
+
+- `.cursor/environment.json`
+- `.cursor/setup-cloud-agent.sh`
+
+No boot de cada cloud agent, o setup:
+
+1. valida que a versão do Python é `>= 3.11`;
+2. garante disponibilidade do `pip`;
+3. executa automaticamente:
+
+```bash
+python3 -m pip install ./stohler-news-agent
+```
+
+Assim, o projeto já sobe pronto sem setup manual extra.
 
 ## Criar o repositório na conta `stohler`
 
