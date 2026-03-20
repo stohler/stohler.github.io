@@ -1,0 +1,4 @@
+{
+  "install": "bash .cursor/setup-cloud-agent.sh"
+}
+
