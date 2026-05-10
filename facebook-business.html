@@ -48,13 +48,57 @@
     </style>
 </head>
 
+
+<script>
+(function () {
+  // ----- configure aqui (ou injete do seu build / env) -----
+  var FACEBOOK_APP_ID = '1249819229008072';
+  var REDIRECT_URI = 'https://api-sandbox.moneri.com.br/v1/instagram-scrapper/auth/facebook/program/callback';
+  var PROGRAM_ID = 'PR788906'; // _id do Program no Mongo
+  var AFTER_LOGIN_URL = 'https://APP-SANDBOX.moneri.com.br/seu-path'; // opcional; host deve ser permitido (moneri.com.br / lista no .env)
+
+  var SCOPE =
+    'instagram_basic,instagram_manage_insights,pages_show_list,pages_read_engagement';
+
+  // Igual ao backend: JSON → base64 → encodeURIComponent(state)
+  function encodeProgramOAuthState(programId, redirectFrontUrl) {
+    var payload = { programId: programId };
+    if (redirectFrontUrl) payload.redirectFrontUrl = redirectFrontUrl;
+    var json = JSON.stringify(payload);
+    var base64 = btoa(unescape(encodeURIComponent(json)));
+    return encodeURIComponent(base64);
+  }
+
+  function buildOAuthUrl() {
+    var params = new URLSearchParams({
+      client_id: FACEBOOK_APP_ID,
+      redirect_uri: REDIRECT_URI,
+      response_type: 'code',
+      scope: SCOPE,
+      state: encodeProgramOAuthState(PROGRAM_ID, AFTER_LOGIN_URL || undefined),
+    });
+    return (
+      'https://www.facebook.com/v22.0/dialog/oauth?' + params.toString()
+    );
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var link = document.getElementById('fb-program-oauth-link');
+    if (link) link.href = buildOAuthUrl();
+  });
+})();
+</script>
+
 <body>
     <div class="container">
         <h2>Teste Login Business Instagram</h2>
         <p id="profile">Faça login para visualizar seu perfil.</p>
-<a href="https://www.facebook.com/v22.0/dialog/oauth?client_id=1249819229008072&redirect_uri=https://api-sandbox.moneri.com.br/v1/instagram-scrapper/auth/instagram/callback&response_type=code&scope=instagram_basic,instagram_manage_insights,pages_show_list,pages_read_engagement&state=PR788906">
-    Log in with Facebook Business
-</a>
+
+            <!-- Facebook Login (Program / parceiro → Program.credentials.instagram) -->
+<div id="fb-program-oauth-root">
+  <a id="fb-program-oauth-link" href="#">Log in with Facebook Business</a>
+</div>
+
     </div>
 </body>
 
